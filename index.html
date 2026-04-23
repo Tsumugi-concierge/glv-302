@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f4f7fa">
+    <meta name="description" content="Welcome guide for GLV 302 â your cozy home in Ryogoku, Tokyo.">
+    <title>Welcome to GLV 302</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Core palette â preserved warmth */
+            --cream: #f4f7fa;
+            --cream-deep: #e5ecf3;
+            --orange: #3e7cb1;
+            --orange-light: #c8d9e8;
+            --orange-soft: #dde8f2;
+            --teal: #5c8fa8;
+            --teal-light: #bcd0dc;
+            --teal-dark: #3a6a82;
+            --teal-soft: #e3ecf1;
+            --dusty-rose: #8a9bae;
+            --dusty-rose-light: #d5dde5;
+            --dusty-rose-soft: #e8edf2;
+            --green-dark: #2d4a5e;
+            --green-soft: #d8e0e8;
+            --text-dark: #2c3440;
+            --text-mid: #566374;
+            --text-soft: #8592a3;
+            --white: #ffffff;
+            --ink-15: rgba(40,55,75,0.15);
+
+            /* Layered shadows for depth without heaviness */
+            --shadow-xs: 0 1px 2px rgba(60,80,120,0.06);
+            --shadow-sm: 0 2px 8px rgba(60,80,120,0.09);
+            --shadow-md: 0 4px 18px rgba(60,80,120,0.12);
+            --shadow-lg: 0 10px 34px rgba(60,80,120,0.18);
+            --shadow-hover: 0 14px 38px rgba(60,80,120,0.22);
+
+            --r-sm: 10px;
+            --r-md: 16px;
+            --r-lg: 22px;
+            --r-xl: 28px;
+
+            --ease-pop: cubic-bezier(.34,1.56,.64,1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: env(safe-area-inset-bottom);
+            line-height: 1.55;
+        }
+
+        /* Soft warm gradient blobs â ambience */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(4px);
+        }
+        body::before {
+            top: -120px; right: -100px;
+            width: 360px; height: 360px;
+            background: radial-gradient(circle, var(--orange-light) 0%, transparent 68%);
+        }
+        body::after {
+            bottom: -140px; left: -120px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, var(--teal-light) 0%, transparent 70%);
+        }
+
+        /* Subtle paper texture overlay for warmth */
+        main::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.35) 0, transparent 40%),
+                              radial-gradient(circle at 80% 90%, rgba(255,255,255,0.25) 0, transparent 40%);
+            pointer-events: none; z-index: 0;
+        }
+
+        .skip-link {
+            position: absolute; left: -9999px;
+            top: 10px;
+            background: var(--orange); color: #fff;
+            padding: 10px 16px; border-radius: 999px;
+            font-weight: 800;
+            z-index: 1000;
+        }
+        .skip-link:focus { left: 10px; }
+
+        main { position: relative; max-width: 560px; margin: 0 auto; z-index: 1; }
+
+        /* âââ Language switcher âââ */
+        .lang-switcher {
+            position: fixed;
+            top: calc(10px + env(safe-area-inset-top));
+            right: 10px;
+            z-index: 100;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 200px;
+        }
+        .lang-btn {
+            border: 1.5px solid rgba(240,130,74,0.35);
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 999px;
+            padding: 5px 10px;
+            font-family: inherit;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-xs);
+            letter-spacing: 0.02em;
+        }
+        .lang-btn.active {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(240,130,74,0.35);
+        }
+        .lang-btn:hover:not(.active),
+        .lang-btn:focus-visible:not(.active) {
+            border-color: var(--orange);
+            color: var(--orange);
+            outline: none;
+        }
+
+        /* âââ Hero âââ */
+        .hero {
+            text-align: center;
+            padding: 54px 24px 28px;
+            position: relative;
+        }
+        .hero-house {
+            display: inline-block;
+            font-size: 68px;
+            line-height: 1;
+            margin-bottom: 10px;
+            animation: floatHouse 3.5s ease-in-out infinite;
+            filter: drop-shadow(0 8px 14px rgba(240,130,74,0.25));
+        }
+        @keyframes floatHouse {
+            0%,100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-7px) rotate(2deg); }
+        }
+        .hero h1 {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            font-size: clamp(2rem, 7vw, 3rem);
+            color: var(--teal-dark);
+            line-height: 1.15;
+            text-shadow: 3px 3px 0 var(--teal-soft);
+            margin-bottom: 8px;
+            letter-spacing: 0.01em;
+        }
+        .hero-sub {
+            font-size: 0.92rem;
+            color: var(--text-mid);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+        .hero-location {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color: var(--text-mid);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(240,130,74,0.18);
+        }
+
+        /* âââ Wi-Fi card âââ */
+        .wifi-card {
+            margin: 8px 16px 28px;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            border-radius: var(--r-xl);
+            padding: 18px 18px 16px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            animation: slideDown 0.5s ease both;
+        }
+        .wifi-card::before {
+            content: 'ð¶';
+            position: absolute;
+            right: -6px; top: -10px;
+            font-size: 84px;
+            opacity: 0.10;
+            transform: rotate(-12deg);
+        }
+        .wifi-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .wifi-head-label {
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+            flex: 1;
+        }
+        .wifi-head-emoji {
+            font-size: 1.4rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        }
+        .qr-toggle {
+            border: 1.5px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            border-radius: 999px;
+            padding: 5px 12px;
+            font-family: inherit;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #fff;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .qr-toggle:hover,
+        .qr-toggle:focus-visible {
+            background: rgba(255,255,255,0.28);
+            border-color: rgba(255,255,255,0.6);
+            outline: none;
+        }
+        .qr-toggle .qr-ico { font-size: 0.9rem; }
+
+        .wifi-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .wifi-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: var(--r-md);
+            color: inherit;
+            font-family: inherit;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, transform 0.15s var(--ease-pop);
+            width: 100%;
+        }
+        .wifi-row:hover,
+        .wifi-row:focus-visible {
+            background: rgba(255,255,255,0.22);
+            outline: none;
+        }
+        .wifi-row:active { transform: scale(0.98); }
+        .wifi-row.copied { background: rgba(127,255,176,0.35); }
+        .wifi-row-label {
+            font-size: 0.66rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            min-width: 56px;
+        }
+        .wifi-row-val {
+            flex: 1;
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.02em;
+            word-break: break-all;
+        }
+        .wifi-row-action {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            flex-shrink: 0;
+            transition: transform 0.3s var(--ease-pop);
+        }
+        .wifi-row:hover .wifi-row-action { transform: scale(1.15); opacity: 1; }
+
+        .wifi-qr {
+            display: none;
+            margin-top: 14px;
+            padding: 16px;
+            background: #fff;
+            border-radius: var(--r-md);
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .wifi-qr.visible { display: block; }
+        .wifi-qr canvas, .wifi-qr img {
+            display: block;
+            margin: 0 auto 8px;
+            max-width: 200px;
+            height: auto;
+            image-rendering: pixelated;
+        }
+        .wifi-qr-hint {
+            font-size: 0.78rem;
+            color: var(--text-mid);
+            font-weight: 700;
+        }
+
+        /* âââ Toast âââ */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-dark);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s var(--ease-pop);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* âââ Menu groups âââ */
+        .menu { padding: 0 16px; }
+        .menu-group { margin-bottom: 18px; }
+        .menu-group-head {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 0 4px 12px;
+        }
+        .menu-group-title {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: var(--orange);
+            letter-spacing: 0.02em;
+        }
+        .menu-group-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, var(--orange-light), transparent);
+            border-radius: 2px;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .pl-btn {
+            background: var(--white);
+            border-radius: var(--r-lg);
+            padding: 18px 12px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-sm);
+            border: 1.5px solid transparent;
+            transition: transform 0.22s var(--ease-pop), box-shadow 0.22s ease, border-color 0.2s ease, background 0.2s ease;
+            animation: popIn 0.4s var(--ease-pop) both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pl-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--btn-accent, var(--orange));
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .pl-btn:hover,
+        .pl-btn:focus-visible,
+        .pl-btn:active {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--btn-accent, var(--orange));
+            outline: none;
+        }
+        .pl-btn:hover::before,
+        .pl-btn:focus-visible::before { opacity: 1; }
+
+        .pl-icon-wrap {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--btn-tint, var(--orange-soft));
+            transition: transform 0.3s var(--ease-pop);
+        }
+        .pl-btn:hover .pl-icon-wrap { transform: scale(1.08) rotate(-5deg); }
+        .pl-icon {
+            font-size: 1.8rem;
+            line-height: 1;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.08));
+        }
+        .pl-en {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--btn-accent, var(--orange));
+            text-align: center;
+            line-height: 1.2;
+        }
+        .pl-ja {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-mid);
+            text-align: center;
+            line-height: 1.35;
+        }
+
+        /* Color tokens per button â 12 total */
+        .pl-btn:nth-of-type(1) { --btn-accent: var(--orange);     --btn-tint: var(--orange-soft);     animation-delay: 0.05s; }
+        .pl-btn:nth-of-type(2) { --btn-accent: var(--teal-dark);  --btn-tint: var(--teal-soft);       animation-delay: 0.1s; }
+        .pl-btn:nth-of-type(3) { --btn-accent: var(--dusty-rose); --btn-tint: var(--dusty-rose-soft); animation-delay: 0.15s; }
+        .pl-btn:nth-of-type(4) { --btn-accent: var(--green-dark); --btn-tint: var(--green-soft);      animation-delay: 0.2s; }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.88) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* âââ Chat âââ */
+        .chat-section {
+            margin: 28px 16px 0;
+            position: relative;
+        }
+
+        .chat-box {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            border: 1.5px solid var(--orange-light);
+        }
+        .chat-header {
+            background: linear-gradient(135deg, var(--orange) 0%, #e05a28 100%);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chat-header::after {
+            content: '';
+            position: absolute;
+            right: -20px; top: -20px;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+        }
+        .chat-avatar {
+            width: 42px; height: 42px;
+            background: rgba(255,255,255,0.28);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .chat-hd-text { position: relative; z-index: 1; }
+        .chat-hd-name {
+            font-weight: 900;
+            font-size: 1rem;
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+        .chat-hd-status {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.88);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        .online-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #7fffb0;
+            display: inline-block;
+            margin-right: 5px;
+            animation: blink 1.6s ease infinite;
+            box-shadow: 0 0 6px rgba(127,255,176,0.7);
+        }
+        @keyframes blink {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .chat-msgs {
+            height: 220px;
+            overflow-y: auto;
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .chat-msgs::-webkit-scrollbar { width: 4px; }
+        .chat-msgs::-webkit-scrollbar-track { background: transparent; }
+        .chat-msgs::-webkit-scrollbar-thumb { background: var(--orange-light); border-radius: 4px; }
+
+        .msg {
+            max-width: 82%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 0.87rem;
+            line-height: 1.55;
+            font-weight: 600;
+            animation: msgPop 0.3s var(--ease-pop) both;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        @keyframes msgPop {
+            from { opacity: 0; transform: scale(0.92) translateY(4px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .msg.bot {
+            background: var(--teal-soft);
+            color: var(--text-dark);
+            border-radius: 4px 16px 16px 16px;
+            align-self: flex-start;
+        }
+        .msg.user {
+            background: var(--orange);
+            color: #fff;
+            border-radius: 16px 4px 16px 16px;
+            align-self: flex-end;
+        }
+        .msg.typing {
+            background: var(--teal-soft);
+            border-radius: 4px 16px 16px 16px;
+            align-self: flex-start;
+            padding: 14px 18px;
+        }
+        .typing-dots { display: flex; gap: 4px; align-items: center; }
+        .typing-dots span {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--teal-dark);
+            opacity: 0.6;
+            animation: dot 1.2s ease infinite;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dot {
+            0%,80%,100% { transform: scale(0.9); opacity: 0.5; }
+            40% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .quick-chips {
+            display: flex;
+            gap: 6px;
+            padding: 0 14px 12px;
+            flex-wrap: wrap;
+            border-bottom: 1.5px solid var(--orange-soft);
+        }
+        .chip {
+            background: var(--cream);
+            border: 1.5px solid var(--orange-light);
+            color: var(--text-mid);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .chip:hover,
+        .chip:focus-visible {
+            background: var(--orange);
+            color: #fff;
+            border-color: var(--orange);
+            outline: none;
+        }
+
+        .chat-input-row {
+            display: flex;
+            padding: 12px 14px;
+            gap: 8px;
+            background: var(--cream);
+        }
+        .chat-input {
+            flex: 1;
+            border: 1.5px solid var(--orange-light);
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: var(--white);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .chat-input:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(240,130,74,0.15);
+        }
+        .chat-input::placeholder { color: #bba; }
+        .send-btn {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            background: var(--orange);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #fff;
+            transition: transform 0.2s var(--ease-pop), background 0.2s;
+            flex-shrink: 0;
+        }
+        .send-btn:hover,
+        .send-btn:focus-visible {
+            transform: scale(1.1);
+            background: #e05a28;
+            outline: none;
+        }
+        .send-btn:active { transform: scale(0.94); }
+
+        /* âââ Emergency strip âââ */
+        .emergency-strip {
+            margin: 20px 16px 28px;
+            background: linear-gradient(135deg, #c0383a 0%, #a02020 100%);
+            border-radius: var(--r-lg);
+            padding: 14px 16px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .emergency-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .em-icon { font-size: 1.4rem; }
+        .em-title {
+            font-weight: 900;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .em-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        .em-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 10px 6px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: var(--r-md);
+            color: #fff;
+            text-decoration: none;
+            font-family: inherit;
+            transition: background 0.2s, transform 0.15s var(--ease-pop);
+        }
+        .em-btn:hover,
+        .em-btn:focus-visible {
+            background: rgba(255,255,255,0.28);
+            outline: none;
+        }
+        .em-btn:active { transform: scale(0.97); }
+        .em-btn-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.88;
+        }
+        .em-btn-num {
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+        }
+
+        /* âââ Footer âââ */
+        .site-footer {
+            text-align: center;
+            padding: 20px 16px 32px;
+            color: var(--text-soft);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .site-footer .heart { color: var(--dusty-rose); }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .hero-house { animation: none; }
+            .online-dot { animation: none; }
+        }
+
+        /* Larger screens: single column stays centered and snug */
+        @media (min-width: 520px) {
+            .btn-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <nav class="lang-switcher" aria-label="Language">
+        <button class="lang-btn active" onclick="setLang('en', this)" aria-label="English">EN</button>
+        <button class="lang-btn" onclick="setLang('ja', this)" aria-label="æ¥æ¬èª">JA</button>
+        <button class="lang-btn" onclick="setLang('zh', this)" aria-label="ä¸­æ">ZH</button>
+        <button class="lang-btn" onclick="setLang('ko', this)" aria-label="íêµ­ì´">KO</button>
+        <button class="lang-btn" onclick="setLang('fr', this)" aria-label="FranÃ§ais">FR</button>
+        <button class="lang-btn" onclick="setLang('es', this)" aria-label="EspaÃ±ol">ES</button>
+    </nav>
+
+    <main id="main">
+        <header class="hero">
+            <span class="hero-house" aria-hidden="true">ð </span>
+            <h1>GLV 302</h1>
+            <p class="hero-sub" data-i18n="headerSub">Welcome Guide â¨ Welcome!</p>
+            <p class="hero-location" data-i18n="heroLocation">ð Ryogoku, Tokyo</p>
+        </header>
+
+        <section class="wifi-card" aria-labelledby="wifi-title">
+            <div class="wifi-head">
+                <span class="wifi-head-emoji" aria-hidden="true">ð¶</span>
+                <span class="wifi-head-label" id="wifi-title" data-i18n="wifiLabel">Wi-Fi</span>
+                <button class="qr-toggle" id="qrToggle" onclick="toggleQR()" aria-expanded="false" aria-controls="wifiQr">
+                    <span class="qr-ico">â£</span>
+                    <span data-i18n="qrBtn">QR</span>
+                </button>
+            </div>
+            <div class="wifi-rows">
+                <button class="wifi-row" onclick="copyWifi(this, 'GLV302')" aria-label="Copy network name">
+                    <span class="wifi-row-label" data-i18n="ssidLabel">Network</span>
+                    <span class="wifi-row-val">GLV302</span>
+                    <span class="wifi-row-action" aria-hidden="true">â§</span>
+                </button>
+                <button class="wifi-row" onclick="copyWifi(this, 'WIFI_PASSWORD_GLV302')" aria-label="Copy password">
+                    <span class="wifi-row-label" data-i18n="passLabel">Password</span>
+                    <span class="wifi-row-val">WIFI_PASSWORD_GLV302</span>
+                    <span class="wifi-row-action" aria-hidden="true">â§</span>
+                </button>
+            </div>
+            <div class="wifi-qr" id="wifiQr">
+                <img id="wifiQrImg" alt="Wi-Fi QR code" width="200" height="200">
+                <p class="wifi-qr-hint" data-i18n="qrHint">Scan with your camera to connect</p>
+            </div>
+        </section>
+
+        <nav class="menu" aria-label="Guest menu">
+            <div class="menu-group">
+                <div class="menu-group-head">
+                    <span class="menu-group-title" data-i18n="catArrive">Arriving</span>
+                    <span class="menu-group-line"></span>
+                </div>
+                <div class="btn-grid">
+                    <a href="access/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð </span></span>
+                        <span class="pl-en" data-i18n="btn1">Route to Accommodations</span>
+                        <span class="pl-ja">å®¿æ³æ½è¨­ã¸ã®ã«ã¼ã</span>
+                    </a>
+                    <a href="taxi/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð</span></span>
+                        <span class="pl-en" data-i18n="btn2">By Taxi</span>
+                        <span class="pl-ja">ã¿ã¯ã·ã¼ããå©ç¨ã®å ´å</span>
+                    </a>
+                    <a href="how-to-open/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð</span></span>
+                        <span class="pl-en" data-i18n="btn3">How to Open</span>
+                        <span class="pl-ja">éµã®éãæ¹</span>
+                    </a>
+                    <a href="parking/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð</span></span>
+                        <span class="pl-en" data-i18n="btn7">Parking</span>
+                        <span class="pl-ja">é§è»å ´æå ±</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-group-head">
+                    <span class="menu-group-title" data-i18n="catInside">Inside the Home</span>
+                    <span class="menu-group-line"></span>
+                </div>
+                <div class="btn-grid">
+                    <a href="house-rules/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð</span></span>
+                        <span class="pl-en" data-i18n="btn4">House Rules</span>
+                        <span class="pl-ja">ãã¦ã¹ã«ã¼ã«</span>
+                    </a>
+                    <a href="equipment/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð ï¸</span></span>
+                        <span class="pl-en" data-i18n="btn5">Equipment</span>
+                        <span class="pl-ja">è¨­åã«ã¤ãã¦</span>
+                    </a>
+                    <a href="laundry/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð«§</span></span>
+                        <span class="pl-en" data-i18n="btn9">Laundry</span>
+                        <span class="pl-ja">æ´æ¿¯æ©ã®ä½¿ãæ¹</span>
+                    </a>
+                    <a href="trash/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ðï¸</span></span>
+                        <span class="pl-en" data-i18n="btn8">Trash</span>
+                        <span class="pl-ja">ã´ãã®åºãæ¹</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-group-head">
+                    <span class="menu-group-title" data-i18n="catHelp">Help & Neighborhood</span>
+                    <span class="menu-group-line"></span>
+                </div>
+                <div class="btn-grid">
+                    <a href="nearby-shops/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ðºï¸</span></span>
+                        <span class="pl-en" data-i18n="btn6">Nearby Shops</span>
+                        <span class="pl-ja">è¿é£ã®ãåºæå ±</span>
+                    </a>
+                    <a href="circuit-breaker/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">â¡</span></span>
+                        <span class="pl-en" data-i18n="btn10">Circuit Breaker</span>
+                        <span class="pl-ja">ãã¬ã¼ã«ã¼ã«ã¤ãã¦</span>
+                    </a>
+                    <a href="gas-reset/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð¥</span></span>
+                        <span class="pl-en" data-i18n="btn12">Gas Reset</span>
+                        <span class="pl-ja">ã¬ã¹ã¡ã¼ã¿ã¼å¾©å¸°</span>
+                    </a>
+                    <a href="emergency/" class="pl-btn">
+                        <span class="pl-icon-wrap"><span class="pl-icon" aria-hidden="true">ð</span></span>
+                        <span class="pl-en" data-i18n="btn11">Emergency</span>
+                        <span class="pl-ja">ç·æ¥æã®é£çµ¡</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <section class="chat-section" aria-labelledby="chat-title">
+            <div class="chat-box">
+                <div class="chat-header">
+                    <div class="chat-avatar" aria-hidden="true">ð¤</div>
+                    <div class="chat-hd-text">
+                        <div class="chat-hd-name" id="chat-title">GLV 302 Assistant</div>
+                        <div class="chat-hd-status"><span class="online-dot" aria-hidden="true"></span><span id="statusText">Always here to help!</span></div>
+                    </div>
+                </div>
+                <div class="chat-msgs" id="chatMsgs" aria-live="polite">
+                    <div class="msg bot">Hi! ð Welcome to GLV 302!<br>How can I help you today?</div>
+                </div>
+                <div class="quick-chips" id="quickChips" aria-label="Suggested questions">
+                    <button type="button" class="chip" data-chip="chipCheckin" onclick="askChip(this)">ð Check-in time?</button>
+                    <button type="button" class="chip" data-chip="chipCheckout" onclick="askChip(this)">ð Check-out time?</button>
+                    <button type="button" class="chip" data-chip="chipWifi" onclick="askChip(this)">ð¶ Wi-Fi?</button>
+                </div>
+                <div class="chat-input-row">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type a questionâ¦" aria-label="Type your question">
+                    <button class="send-btn" onclick="sendMessage()" aria-label="Send message">â¤</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="emergency-strip" aria-labelledby="em-title">
+            <div class="emergency-head">
+                <span class="em-icon" aria-hidden="true">ð¨</span>
+                <span class="em-title" id="em-title" data-i18n="emergencyTitle">Emergency</span>
+            </div>
+            <div class="em-buttons">
+                <a href="tel:119" class="em-btn">
+                    <span class="em-btn-label" data-i18n="emFire">ð Fire</span>
+                    <span class="em-btn-num">119</span>
+                </a>
+                <a href="tel:119" class="em-btn">
+                    <span class="em-btn-label" data-i18n="emAmb">ð Ambulance</span>
+                    <span class="em-btn-num">119</span>
+                </a>
+                <a href="tel:110" class="em-btn">
+                    <span class="em-btn-label" data-i18n="emPolice">ð® Police</span>
+                    <span class="em-btn-num">110</span>
+                </a>
+            </div>
+        </aside>
+
+        <footer class="site-footer">
+            <p>Made with <span class="heart">â¥</span> for our guests Â· GLV 302</p>
+        </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <span aria-hidden="true">â</span>
+        <span id="toastText">Copied!</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@master/qrcode.min.js" defer></script>
+    <script>
+        // ââ GLV 302 è¨­å®ï¼ããã ãå¤æ´ï¼ââââââââââââââââââââââââââââ
+        const CONFIG = {
+            workerUrl: 'https://concierge.info-tsumugi4.workers.dev',
+            sheetId:   '1Ex05ckGULQi-T8kmHbW6ksIHd48wQu6UCGaaN1x9hRA',
+            gids: {
+                property:    '1929104329',
+                commonRules: '2144241359',
+                faq:         '44823007',
+                propertyFaq: '1788361166',
+            },
+        };
+
+        const WIFI = { ssid: 'GLV302', password: 'WIFI_PASSWORD_GLV302', type: 'WPA' };
+
+        let currentLang = 'en';
+        let history = [];
+
+        const LANG_DATA = {
+            en: { status: 'Always here to help!',   placeholder: 'Type a questionâ¦',          welcome: 'Hi! ð Welcome to GLV 302!<br>How can I help you today?',           copied: 'Copied!',     chipCheckin: 'What time is check-in?',        chipCheckout: 'What time is check-out?',       chipWifi: 'What is the Wi-Fi password?' },
+            ja: { status: 'ãã¤ã§ããè³ªåã©ããï¼',    placeholder: 'ãè³ªåãå¥åãã¦ãã ããâ¦',    welcome: 'ããã«ã¡ã¯ï¼ð GLV 302ã¸ããããï¼<br>ä½ã§ããæ°è»½ã«ã©ããï¼',              copied: 'ã³ãã¼ãã¾ããï¼', chipCheckin: 'ãã§ãã¯ã¤ã³ã¯ä½æã§ãã¾ü',         chipCheckout: 'ãã§ãã¯ã¢ã¦ãã¯ä½æã§ããï¼',    chipWifi: 'Wi-Fiã®ãã¹ã¯ã¼ãã¯ï¼' },
+            zh: { status: 'éæ¶ä¸ºæ¨æå¡ï¼',            placeholder: 'è¯·è¾å¥æ¨çé®é¢â¦',             welcome: 'æ¨å¥½ï¼ð æ¬¢è¿æ¥å° GLV 302ï¼<br>æä»ä¹å¯ä»¥å¸®æ¨çåï¼',                       copied: 'å·²å¤å¶ï¼',      chipCheckin: 'å¥ä½æ¶é´æ¯å ç¹ï¼',                 chipCheckout: 'éæ¿æ¶é´æ¯å ç¹ï¼',              chipWifi: 'Wi-Fiå¯ç æ¯ä»ä¹ï¼' },
+            ko: { status: 'ì¸ì ë ì§ ëìëë¦½ëë¤!',    placeholder: 'ì§ë¬¸ì ìë ¥íì¸ìâ¦',          welcome: 'ìëíì¸ì! ð GLV 302ì ì¤ì  ê²ì íìí©ëë¤!<br>ë¬´ìì ëìëë¦´ê¹ì?',    copied: 'ë³µì¬ëììµëë¤!', chipCheckin: 'ì²´í¬ì¸ ìê°ì ì¸ì ì¸ê°ì?',          chipCheckout: 'ì²´í¬ìì ìê°ì ì¸ì ì¸ê°ì?',    chipWifi: 'Wi-Fi ë¹ë°ë²í¸ê° ë­ê°ì?' },
+            fr: { status: 'Toujours lÃ  pour vous!', placeholder: 'Posez votre questionâ¦',     welcome: 'Bonjour ! ð Bienvenue au GLV 302 !<br>Comment puis-je vous aider ?',   copied: 'CopiÃ© !',     chipCheckin: 'Ã quelle heure est l\'arrivÃ©e ?',    chipCheckout: 'Ã quelle heure est le dÃ©part ?', chipWifi: 'Quel est le mot de passe Wi-Fi ?' },
+            es: { status: 'Â¡AquÃ­ para ayudarle!',   placeholder: 'Escriba su preguntaâ¦',     welcome: 'Â¡Hola! ð Â¡Bienvenido/a al GLV 302!<br>Â¿En quÃ© puedo ayudarle?',        copied: 'Â¡Copiado!',    chipCheckin: 'Â¿A quÃ© hora es el check-in?',        chipCheckout: 'Â¿A quÃ© hora es el check-out?',   chipWifi: 'Â¿CuÃ¡l es la contraseÃ±a del Wi-Fi?' },
+        };
+
+        const UI_STRINGS = {
+            en: {
+                headerSub:      'Welcome Guide â¨ Welcome!',
+                heroLocation:   'ð Ryogoku, Tokyo',
+                wifiLabel:      'Wi-Fi',
+                ssidLabel:      'Network',
+                passLabel:      'Password',
+                qrBtn:          'QR',
+                qrHint:         'Scan with your camera to connect',
+                catArrive:      'Arriving',
+                catInside:      'Inside the Home',
+                catHelp:        'Help & Neighborhood',
+                btn1: 'Route to Accommodations', btn2: 'By Taxi', btn3: 'How to Open', btn4: 'House Rules',
+                btn5: 'Equipment', btn6: 'Nearby Shops', btn7: 'Parking', btn8: 'Trash',
+                btn9: 'Laundry', btn10: 'Circuit Breaker', btn11: 'Emergency', btn12: 'Gas Reset',
+                emergencyTitle: 'Emergency',
+                emFire: 'ð Fire', emAmb: 'ð Ambulance', emPolice: 'ð® Police',
+                chipCheckin: 'ð Check-in time?', chipCheckout: 'ð Check-out time?', chipWifi: 'ð¶ Wi-Fi?',
+            },
+            ja: {
+                headerSub:      'ã¦ã§ã«ã«ã ã¬ã¤ã â¨ ããããï¼',
+                heroLocation:   'ð æ±äº¬ã»ä¸¡å½',
+                wifiLabel:      'Wi-Fi',
+                ssidLabel:      'SSID',
+                passLabel:      'ãã¹ã¯ã¼ã',
+                qrBtn:          'QR',
+                qrHint:         'ã«ã¡ã©ã§ã¹ã­ã£ã³ãã¦æ¥ç¶',
+                catArrive:      'ãè¶ãã®éã«',
+                catInside:      'å®¤åã®ãæ¡å',
+                catHelp:        'ãã«ãã»å¨è¾ºæå ±',
+                btn1: 'å®¿æ³æ½è¨­ã¸ã®ã«ã¼ã', btn2: 'ã¿ã¯ã·ã¼ããå©ç¨ã®å ´å', btn3: 'éµã®éãæ¹', btn4: 'ãã¦ã¹ã«ã¼ã«',
+                btn5: 'è¨­åã«ã¤ãã¦', btn6: 'è¿é£ã®ãåºæå ±', btn7: 'é§è»å ´æå ±', btn8: 'ã´ãã®åºãæ¹',
+                btn9: 'æ´æ¿¯æ©ã®ä½¿ãæ¹', btn10: 'ãã¬ã¼ã«ã¼ã«ã¤ãã¦', btn11: 'ç·æ¥æã®é£çµ¡', btn12: 'ã¬ã¹ã¡ã¼ã¿ã¼å¾©å¸°',
+                emergencyTitle: 'ç·æ¥é£çµ¡å',
+                emFire: 'ð æ¶é²', emAmb: 'ð ææ¥', emPolice: 'ð® è­¦å¯',
+                chipCheckin: 'ð ãã§ãã¯ã¤ã³æé', chipCheckout: 'ð ãã§ãã¯ã¢ã¦ãæé', chipWifi: 'ð¶ Wi-Fi',
+            },
+            zh: {
+                headerSub:      'æ¬¢è¿æå â¨ æ¬¢è¿æ¨ï¼',
+                heroLocation:   'ð ä¸äº¬ã»æ± è¢',
+                wifiLabel:      'Wi-Fi',
+                ssidLabel:      'ç½ç»',
+                passLabel:      'å¯ç ',
+                qrBtn:          'QR',
+                qrHint:         'ç¨ç¸æºæ«æå³å¯è¿æ¥',
+                catArrive:      'å°è¾¾',
+                catInside:      'å±åä¿¡æ¯',
+                catHelp:        'å¸®å©ä¸å¨è¾¹',
+                btn1: 'åå¾ä½å®¿çè·¯çº¿', btn2: 'ä¹ååºç§è½¦', btn3: 'å¦ä½å¼é¨', btn4: 'æ¿å±è§å',
+                btn5: 'è®¾æ½è¯´æ', btn6: 'éè¿ååº', btn7: 'åè½¦åºä¿¡æ¯', btn8: 'åå¾å¤çæ¹æ³',
+                btn9: 'æ´è¡£æºä½¿ç¨æ¹æ³', btn10: 'æ­è·¯å¨è¯´æ', btn11: 'ç´§æ¥èç³»', btn12: 'çæ°è¡¨å¤ä½',
+                emergencyTitle: 'ç´§æ¥èç³»',
+                emFire: 'ð æ¶é²', emAmb: 'ð ææ¤', emPolice: 'ð® è­¦å¯',
+                chipCheckin: 'ð å¥ä½æ¶é´ï¼', chipCheckout: 'ð éæ¿æ¶é´ï¼', chipWifi: 'ð¶ Wi-Fi?',
+            },
+            ko: {
+                headerSub:      'íì ê°ì´ë â¨ íìí©ëë¤ï¼',
+                heroLocation:   'ð ëì¿ã»ì´ì¿ë±ì¡',
+                wifiLabel:      'Wi-Fi',
+                ssidLabel:      'ë¤í¸ìí¬%,
+                passLabel:      'ë¹ë°ë²í¸',
+                qrBtn:          'QR',
+                qrHint:         'ì¹´ë©ë¼ë¡ ì¤ìºíì¬ ì°*°°',
+                catArrive:      'ëì²© ìë´',
+                catInside:      'ì¤ë´ ìë´',
+                catHelp:        'ë¤ìî & ì£¼ë³',
+                btn1: 'ìíê¹ì§ ê°ë ê¸¸', btn2: 'íì ì´ì© ë°©ë²', btn3: 'îº¸ ì¬ë ë°©ë²', btn4: 'íì°ì¤ ê·ìº',
+                btn5: 'ìì¤ ìë´', btn6: 'ê·¼ì² íì ', btn7: 'ãª¼ì°¨ì¥ ìë´', btn8: 'ì°îê¸° ìì©çì¬ë ë°©ë²',
+                btn9: 'ì¸íê¸° ì¬ì©ë²', btn10: 'ì°¨ë¨ê¸° ìë´', btn11: 'ê¸´ê¸ ì°î½ì²', btn12: 'ê°ì¤ ë»¸í° ë³µêµ¬',
+                emergencyTitle: 'ê¸´ê¸ ì°ë½ìÊ',
+                emFire: 'ð ìë°©', emAmb: 'ð êµ¬ê¸', emPolice: 'ð® ê²½ì¨°',
+                chipCheckin: 'ð ì²´í¬ì¸ ìê°?', chipCheckout: 'ð ì²´í¬ìì ìê°?', chipWifi: 'ð¶ Wi-Fi?',
+            },
+            fr: {
+                headerSub:      'Guide de bienvenue â¨ Bienvenue !',
+                heroLocation:   'ð Ryogoku, Tokyo',
+                wifiLabel:      'Wi-Fi',
+                ssidLabel:      'RÃ©seau',
+                passLabel:      'Mot de passe',
+                qrBtn:          'QR',
+                qrHint:         'Scannez avec votre camÃ©ra pour vous connecter',
+                catArrive:      'ArrivÃ©e',
+                catInside:      'Dans le logement',
+                catHelp:        'Aide & Quartier',
+                btn1: 'ItinÃ©raire vers l\'hÃ©bergement', btn2: 'En taxi', btn3: 'Comment ouvrir la porte', btn4: 'RÃ¨glement intÃ©rieur', 
+                btn5: 'Ãquipements', btn6: 'Commerces Ã  proximitÃ©', btn7: 'Parking', btn8: 'Collecte des ordures',
+                btn9: 'Utilisation du lave-linge', btn10: 'Disjoncteur', btn11: 'Urgences', btn12: 'RÃ©initialisation gaz'+
+                emergencyTitle: 'Urgences',
+                emFire: 'ð Pompiers', emAmb: 'ð Ambulance', emPolice: 'ð® Police',
+                chipCheckin: 'ð Heure d\'arrivÃ©e ?', chipCheckout: 'ð Heure de dÃ©part ?', chipWifi: 'ð¶ Wi-Fi ?',
+            },
+            es: { 
+                headerSub:      'GuÃ­a de bienvenida â¨ Â¡Bienvenido/a!',
+                heroLocation:   'ð RyeÅgoku, Tokio',
+                wifiLabel:      'Wi-Fi',
+                ssidLabel:      'Red',
+                passLabel:      'ContraseÃ±a',
+                qrBtn:          'QR',
+                qrHint:         'Escanea con tu cÃ¡mara para conectar',
+                catArrive:      'Al llegar',
+                catInside:      'Dentro del alojamiento',
+                catHelp:        'Ayuda y barrio',
+                btn1: 'Ruta al alojamiento', btn2: 'En taxi', btn3: 'CÃ³mo abrir la puerta', btn4: 'Normas de la casa',
+                btn5: 'Equipamiento', btn6: 'Tiendas cercanas', btn7: 'Aparcamiento', btn8: 'GestiÃ³n de residuos',
+                btn9: 'Uso de la lavadora', btn10: 'Interruptor automÃ¡tico', btn11: 'Emergencias', btn12: 'Reinicio de gas',
+                emergencyTitle: 'Emergencias',
+                emFire: 'ð Bomberos', emAmb: 'ð Ambulancia', emPolice: 'ð® PolicÃ­a',
+                chipCheckin: 'ð Â¿Hora de entrada?', chipCheckout: 'ð Â¿Hora de salida?', chipWifi: 'ð¶ Â¿Wi-Fi?',
+            },
+        };
+
+        function applyTranslations(lang) {
+            const t = UI_STRINGS[lang];
+            if (!t) return;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (key in t) el.textContent = t[key];
+            });
+            document.querySelectorAll('.chip').forEach(c => {
+                const key = c.getAttribute('data-chip');
+                if (key && key in t) c.textContent = t[key];
+            });
+        }
+
+        function setLang(lang, btn) {
+            currentLang = lang;
+            const d = LANG_DATA[lang];
+            document.getElementById('statusText').textContent  = d.status;
+            document.getElementById('chatInput').placeholder   = d.placeholder;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            history = [];
+            document.getElementById('chatMsgs').innerHTML = `<div class="msg bot">${d.welcome}</div>`;
+            applyTranslations(lang);
+            document.documentElement.lang = lang;
+        }
+
+        async function sendMessage(overrideText) {
+            const input = document.getElementById('chatInput');
+            const msgs  = document.getElementById('chatMsgs');
+            const text  = (overrideText ?? input.value).trim();
+            if (!text) return;
+
+            addMsg(text, 'user');
+            history.push({ role: 'user', content: text });
+            input.value = '';
+
+            const chips = document.getElementById('quickChips');
+            if (chips) chips.style.display = 'none';
+
+            const typing = document.createElement('div');
+            typing.className = 'msg typing';
+            typing.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+            msgs.appendChild(typing);
+            msgs.scrollTop = msgs.scrollHeight;
+
+            try {
+                const res = await fetch(CONFIG.workerUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: history,
+                        lang:     currentLang,
+                        sheetId:  CONFIG.sheetId,
+                        gids:     CONFIG.gids,
+                    }),
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    typing.remove();
+                    addMsg(`Error ${res.status}: ${data.error?.message || 'Unknown error'}`, 'bot');
+                    return;
+                }
+                const reply = (data.content?.[0]?.text || 'Sorry, something went wrong. ð').replace(/\*\*/g, '');
+                typing.remove();
+                history.push({ role: 'assistant', content: reply });
+                addMsg(reply, 'bot');
+            } catch (e) {
+                typing.remove();
+                addMsg('Connection error: ' + e.message, 'bot');
+            }
+        }
+
+        function addMsg(text, type) {
+            const msgs = document.getElementById('chatMsgs');
+            const el   = document.createElement('div');
+            el.className  = `msg ${type}`;
+            if (type === 'bot') el.innerHTML = text.replace(/\n/g, '<br>');
+            else el.textContent = text;
+            msgs.appendChild(el);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function askChip(btn) {
+            const key = btn.getAttribute('data-chip');
+            const q = LANG_DATA[currentLang]?.[key] || btn.textContent;
+            sendMessage(q);
+        }
+
+        /* ââ Wi-Fi copy ââ */
+        async function copyWifi(btn, text) {
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed'; ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); } catch {}
+                ta.remove();
+            }
+            btn.classList.add('copied');
+            setTimeout(() => btn.classList.remove('copied'), 900);
+            showToast(LANG_DATA[currentLang]?.copied || 'Copied!');
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastText').textContent = msg;
+            t.classList.add('show');
+            clearTimeout(showToast._t);
+            showToast._t = setTimeout(() => t.classList.remove('show'), 1800);
+        }
+
+        /* ââ Wi-Fi QR ââ */
+        let qrRendered = false;
+        function toggleQR() {
+            const panel = document.getElementById('wifiQr');
+            const btn = document.getElementById('qrToggle');
+            const open = !panel.classList.contains('visible');
+            panel.classList.toggle('visible', open);
+            btn.setAttribute('aria-expanded', String(open));
+            if (open && !qrRendered) renderQR();
+        }
+
+        function wifiQrString() {
+            const esc = s => String(s).replace(/([\\;,":])/g, '\\$1');
+            return `WIFI:T:${WIFI.type};S:${esc(WIFI.ssid)};P:${esc(WIFI.password)};;`;
+        }
+
+        function renderQR() {
+            const img = document.getElementById('wifiQrImg');
+            const payload = wifiQrString();
+            const tryLib = () => {
+                if (typeof QRCode === 'undefined') return false;
+                try {
+                    const tmp = document.createElement('div');
+                    new QRCode(tmp, { text: payload, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M });
+                    const canvas = tmp.querySelector('canvas');
+                    if (canvas) { img.src = canvas.toDataURL('image/png'); qrRendered = true; return true; }
+                    const imgEl = tmp.querySelector('img');
+                    if (imgEl && imgEl.src) { img.src = imgEl.src; qrRendered = true; return true; }
+                } catch {}
+                return false;
+            };
+            if (tryLib()) return;
+            img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(payload)}`;
+            qrRendered = true;
+        }
+
+        document.getElementById('chatInput').addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.isComposing) sendMessage();
+        });
+
+        applyTranslations('en');
+    </script>
+</body>
+</html>
+
