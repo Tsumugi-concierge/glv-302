@@ -1,0 +1,22 @@
+/* Minimal shared styles for language switchers; pages may override */
+.lang-switcher, .lang-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.lang-btn {
+  border: 1.5px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.92);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #444;
+  cursor: pointer;
+}
+/* GLV 302 uses the green theme (301 uses blue #3e7cb1) */
+.lang-btn.active {
+  background: var(--accent, var(--orange, #388e3c));
+  border-color: var(--accent, var(--orange, #388e3c));
+  color: #fff;
+}
